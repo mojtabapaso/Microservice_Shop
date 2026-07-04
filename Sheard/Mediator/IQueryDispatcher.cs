@@ -2,5 +2,5 @@
 
 public interface IQueryDispatcher
 {
-    Task<TResponse> Dispatch<TResponse>(IQuery<TResponse> command);
+    Task<TResponse> Dispatch<TResponse>(IQuery<TResponse> command, CancellationToken cancellationToken = default);
 }
