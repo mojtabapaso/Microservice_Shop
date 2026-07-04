@@ -1,6 +1,5 @@
 ﻿using Grpc.Contracts.Product.Protos;
 using Grpc.Core;
-using Product.Domian.Entities;
 using Product.Infrastructure.Repositories;
 
 namespace Product.API.Grpc;

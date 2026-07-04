@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Microservice.Core\Microservice.Core.csproj" />
     <ProjectReference Include="..\Sheard\Sheard.csproj" />
   </ItemGroup>
 

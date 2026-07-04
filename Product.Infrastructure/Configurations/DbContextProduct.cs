@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Sheard.Interfaces;
+﻿using Microservice.Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Product.Infrastructure.Configurations;
 

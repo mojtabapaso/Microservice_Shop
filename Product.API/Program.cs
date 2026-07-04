@@ -1,9 +1,9 @@
+using Microservice.Core;
+using Microservice.Core.Middleware;
 using Product.API.Grpc;
 using Product.Application;
 using Product.Infrastructure;
 using Product.Infrastructure.Configurations;
-using Sheard;
-using Sheard.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 

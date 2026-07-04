@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Order.Infrastructure.Persistence.Repositories;
+using Order.Infrastructure.Repositories;
 
 namespace Order.Application.Basket.Events;
 

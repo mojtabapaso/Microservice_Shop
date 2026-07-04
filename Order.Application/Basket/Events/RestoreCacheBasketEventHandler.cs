@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Order.Infrastructure.Services.Cache;
+using Order.Infrastructure.Cache;
 
 namespace Order.Application.Basket.Events;
 

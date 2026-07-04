@@ -1,6 +1,6 @@
-﻿using Product.Infrastructure.Configurations;
-using Sheard.Interfaces;
-using Sheard.Repository;
+﻿using Microservice.Core.Interfaces;
+using Microservice.Core.Repository;
+using Product.Infrastructure.Configurations;
 
 namespace Product.Infrastructure.Repositories;
 

@@ -1,0 +1,22 @@
+<Solution>
+  <Folder Name="/Notification/">
+    <Project Path="Notification.API/Notification.API.csproj" Id="026d7671-0211-46cc-afd7-841673b08d51" />
+    <Project Path="Notification.Application/Notification.Application.csproj" Id="0b9f44ec-1fbd-4ff8-b9a0-50a1f61a3406" />
+    <Project Path="Notification.Domain/Notification.Domain.csproj" Id="fdd6e8dd-15b9-4dda-9b3c-8e2b113dea67" />
+    <Project Path="Notification.Infrastructure/Notification.Infrastructure.csproj" Id="574d1075-9b7a-4831-a1f9-5ee0eb0f2b43" />
+  </Folder>
+  <Folder Name="/Order/">
+    <Project Path="Order.API/Order.API.csproj" />
+    <Project Path="Order.Application/Order.Application.csproj" />
+    <Project Path="Order.Domain/Order.Domain.csproj" />
+    <Project Path="Order.Infrastructure/Order.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Product/">
+    <Project Path="Product.API/Product.API.csproj" Id="4dd00bd1-0861-40cb-a33e-70e04a5b82ca" />
+    <Project Path="Product.Application/Product.Application.csproj" Id="4cafcc75-1b28-462b-b163-fcc1bf0fe275" />
+    <Project Path="Product.Domian/Product.Domian.csproj" Id="866e38fd-fe7a-4b8b-881e-378ddeb9d8dd" />
+    <Project Path="Product.Infrastructure/Product.Infrastructure.csproj" Id="76065ea9-ce84-44c8-bc3a-b8dfec69ea3e" />
+  </Folder>
+  <Project Path="Grpc.Contracts/Grpc.Contracts.csproj" Id="df7a4190-c88e-46a2-808c-4cbbac984630" />
+  <Project Path="Microservice.Core/Microservice.Core.csproj" Id="3a31add6-ce83-4823-b4c5-f11ffebe69b5" />
+</Solution>

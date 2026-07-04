@@ -1,5 +1,5 @@
-﻿using Order.Domain.Enums;
-using Sheard.Exceptions;
+﻿using Microservice.Core.Exceptions;
+using Order.Domain.Enums;
 
 namespace Order.Domain.Entities;
 

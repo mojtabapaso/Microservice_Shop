@@ -1,11 +1,12 @@
 using FluentValidation;
 using Grpc.Contracts.Product.Protos;
+using Microservice.Core;
+using Microservice.Core.Middleware;
 using Microsoft.IdentityModel.Tokens.Experimental;
 using Order.Application;
 using Order.Infrastructure;
-using Order.Infrastructure.Persistence.Configurations;
-using Sheard;
-using Sheard.Middleware;
+using Order.Infrastructure.Configurations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // ------------------------------------------------------------

@@ -1,10 +1,9 @@
-﻿using Order.Application.Basket.DTOs;
-using Order.Infrastructure.Persistence.Configurations;
-using Order.Infrastructure.Persistence.Repositories;
-using Order.Infrastructure.Services.Cache;
-using Sheard.ApiResult;
-using Sheard.Interfaces;
-using Sheard.Mediator;
+﻿using Microservice.Core.ApiResult;
+using Microservice.Core.Interfaces;
+using Microservice.Core.Mediator;
+using Order.Application.Basket.DTOs;
+using Order.Infrastructure.Cache;
+using Order.Infrastructure.Repositories;
 
 namespace Order.Application.Basket.Queries;
 

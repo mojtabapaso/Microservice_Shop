@@ -1,8 +1,8 @@
 ﻿using MediatR;
+using Microservice.Core.ApiResult;
+using Microservice.Core.Mediator;
 using Order.Application.Basket.Events;
-using Order.Infrastructure.Persistence.Repositories;
-using Sheard.ApiResult;
-using Sheard.Mediator;
+using Order.Infrastructure.Repositories;
 
 namespace Order.Application.Basket.Commands;
 

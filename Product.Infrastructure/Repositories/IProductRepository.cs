@@ -1,4 +1,4 @@
-﻿using Sheard.Repository;
+﻿using Microservice.Core.Repository;
 
 namespace Product.Infrastructure.Repositories;
 

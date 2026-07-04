@@ -1,6 +1,6 @@
-﻿using Order.Application.Basket.DTOs;
-using Sheard.ApiResult;
-using Sheard.Mediator;
+﻿using Microservice.Core.ApiResult;
+using Microservice.Core.Mediator;
+using Order.Application.Basket.DTOs;
 
 namespace Order.Application.Basket.Queries;
 

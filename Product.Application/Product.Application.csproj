@@ -7,21 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Monikers.imagemanifest" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <content Include="Monikers.imagemanifest">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Product\Commands\" />
     <Folder Include="Product\DTOs\" />
     <Folder Include="Product\Events\" />
     <Folder Include="Product\Validator\" />
     <Folder Include="Product\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Product.Domian\Product.Domian.csproj" />
+    <ProjectReference Include="..\Product.Infrastructure\Product.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
-﻿using Sheard.ApiResult;
-using Sheard.Mediator;
+﻿using Microservice.Core.ApiResult;
+using Microservice.Core.Mediator;
 
 namespace Order.Application.Basket.Commands;
 
