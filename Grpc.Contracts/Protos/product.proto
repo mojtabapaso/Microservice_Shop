@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option csharp_namespace = "Grpc.Contracts.Product.Protos";
+// ChangeProduct
+message ChangeProductRequestDto{
+	int32 ProductId = 1;
+	int64 NewPrice = 2;
+	string Desction = 3;
+}
+
+message ChangeProductResponceDto{
+	bool IsApplied = 1;
+}
+
+message GetProductDataRequestDto{
+	int32 ProductId = 1;
+}
+message GetProductDataResponceDto{
+	int64 Price = 2; 
+}
+service  ProductService {
+	rpc ChangeProduct(ChangeProductRequestDto) returns(ChangeProductResponceDto);
+	rpc GetProductData(GetProductDataRequestDto) returns (GetProductDataResponceDto);
+}

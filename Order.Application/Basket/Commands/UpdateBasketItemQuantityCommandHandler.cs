@@ -1,0 +1,41 @@
+﻿using MediatR;
+using Order.Application.Basket.Events;
+using Order.Infrastructure.Persistence.Repositories;
+using Sheard.ApiResult;
+using Sheard.Mediator;
+
+namespace Order.Application.Basket.Commands;
+
+/// <summary>
+/// هندلر مربوط به بروزرسانی تعداد یک آیتم در سبد خرید
+/// </summary>
+public class UpdateBasketItemQuantityCommandHandler(
+    IBasketRepository basketRepository,
+    IMediator mediator)
+    : ICommandHandler<UpdateBasketItemQuantityCommand, ServiceResult>
+{
+    public async Task<ServiceResult> Handle(
+        UpdateBasketItemQuantityCommand request,
+        CancellationToken cancellationToken)
+    {
+        // دریافت سبد خرید فعال کاربر به همراه آیتم‌های آن
+        var basket = await basketRepository
+            .GetActiveBasketWithItemsByUserId(request.UserId);
+
+        // در صورت وجود سبد خرید، تعداد کالای موردنظر بروزرسانی می‌شود.
+        if (basket is not null)
+        {
+            basket.UpdateQuantity(
+                request.ProductId,
+                request.NewQuantity);
+        }
+
+        // بروزرسانی کش سبد خرید پس از اعمال تغییرات
+        await mediator.Send(
+            new RestoreCacheBasketEvent(request.UserId),
+            cancellationToken);
+
+        // بازگرداندن نتیجه موفق عملیات
+        return ServiceResult.Success();
+    }
+}

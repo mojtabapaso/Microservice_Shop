@@ -1,0 +1,17 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Sheard.Interfaces;
+
+namespace Product.Infrastructure.Configurations;
+
+public class DbContextProduct : BaseDbContext 
+{
+    public DbContextProduct(DbContextOptions<DbContextProduct> options) : base(options)
+    {
+    }
+    public DbSet<Domian.Entities.Product> Products { get; set; }
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        builder.ApplyConfiguration(new ProductConfiguration());
+    }
+}

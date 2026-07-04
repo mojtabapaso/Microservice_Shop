@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/Notification/" />
+  <Folder Name="/Order/">
+    <Project Path="Order.API/Order.API.csproj" />
+    <Project Path="Order.Application/Order.Application.csproj" />
+    <Project Path="Order.Domain/Order.Domain.csproj" />
+    <Project Path="Order.Infrastructure/Order.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Product/">
+    <Project Path="Product.API/Product.API.csproj" Id="4dd00bd1-0861-40cb-a33e-70e04a5b82ca" />
+    <Project Path="Product.Application/Product.Application.csproj" Id="4cafcc75-1b28-462b-b163-fcc1bf0fe275" />
+    <Project Path="Product.Domian/Product.Domian.csproj" Id="866e38fd-fe7a-4b8b-881e-378ddeb9d8dd" />
+    <Project Path="Product.Infrastructure/Product.Infrastructure.csproj" Id="76065ea9-ce84-44c8-bc3a-b8dfec69ea3e" />
+  </Folder>
+  <Project Path="Grpc.Contracts/Grpc.Contracts.csproj" Id="df7a4190-c88e-46a2-808c-4cbbac984630" />
+  <Project Path="Sheard/Sheard.csproj" Id="3a31add6-ce83-4823-b4c5-f11ffebe69b5" />
+</Solution>
