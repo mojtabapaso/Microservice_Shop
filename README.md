@@ -1,90 +1,132 @@
-# توضیحات پروژه
+# Project Overview
 
-این پروژه روی پیاده‌سازی یک سرویس **سبد خرید (Basket Service)** با استفاده از **Clean Architecture** و **CQRS** تمرکز دارد. هدف اصلی، طراحی یک ساختار تمیز، قابل توسعه و قابل نگهداری بود تا هر بخش از منطق پروژه در لایه‌ی مناسب خودش قرار بگیرد.
+This project is a **microservices-based e-commerce backend** built using **.NET**, following **Clean Architecture**, **CQRS**, and **Domain-Driven Design (DDD)** principles. The solution is designed with a strong focus on maintainability, scalability, and separation of concerns.
 
-برای مدیریت **Command** و **Query** از **MediatR** استفاده شده و Eventهای داخلی پروژه نیز با همین ابزار مدیریت می‌شوند. همچنین **RabbitMQ** و **MassTransit** در پروژه راه‌اندازی و پیکربندی شده‌اند، اما در این تسک از آن‌ها برای انتشار Eventها استفاده نشده است.
+The system currently consists of multiple independent services, including **Basket Service**, **Product Service**, and **Order Service**, alongside a shared **Core** library that contains common abstractions, middleware, behaviors, infrastructure components, and reusable utilities used across all services.
 
----
+Communication between microservices is implemented using **gRPC** for high-performance synchronous calls, while the messaging infrastructure is prepared using **RabbitMQ** and **MassTransit** for asynchronous communication and event-driven architecture. Although the messaging infrastructure is fully configured, domain integration events are intentionally not published in this assignment.
 
-# چالش‌های پروژه
-
-بزرگ‌ترین چالش این پروژه خود کدنویسی نبود، بلکه تحلیل نیازمندی‌ها و رسیدن به یک معماری مناسب بود. مستند پروژه که به صورت فایل Word ارائه شده بود، ساختار منظم و شفافی نداشت و بعضی قسمت‌های آن برداشت‌های متفاوتی ایجاد می‌کرد. به همین دلیل بخش قابل توجهی از زمان صرف تحلیل نیازمندی‌ها، طراحی معماری و تصمیم‌گیری درباره ساختار پروژه شد.
+The application follows the **CQRS** pattern using **MediatR**, where commands, queries, and domain events are handled through a clean and extensible pipeline.
 
 ---
 
-# کارهای انجام شده
+# Challenges
 
-## معماری و طراحی
+The primary challenge of this project was not the implementation itself, but designing a clean architecture based on an incomplete and sometimes ambiguous requirements document.
 
-* طراحی ساختار پروژه بر اساس **Clean Architecture**
-* پیاده‌سازی الگوی **CQRS** و جداسازی کامل Command و Query
-* طراحی و پیاده‌سازی **Command Dispatcher** و **Query Dispatcher**
-* طراحی و پیاده‌سازی **ICommand**، **IQuery**، **ICommandHandler** و **IQueryHandler**
-* طراحی **DTO**های مجزا برای Commandها و Queryها و جلوگیری از بازگرداندن مستقیم Entityها
-* مدیریت **Dependency Injection** با استفاده از Marker Interfaceها
+A significant amount of time was dedicated to:
+
+* Analyzing business requirements
+* Designing service boundaries
+* Defining domain models
+* Choosing appropriate architectural patterns
+* Structuring reusable infrastructure for future microservices
+
+Rather than focusing only on delivering the requested features, the goal was to build a production-ready architecture that can easily evolve as new services and business requirements are introduced.
+
+---
+
+# Implemented Features
+
+## Architecture
+
+* Designed the solution based on **Clean Architecture**
+* Implemented **CQRS** with complete separation of Commands and Queries
+* Designed and implemented custom **Command Dispatcher** and **Query Dispatcher**
+* Implemented **ICommand**, **IQuery**, **ICommandHandler**, and **IQueryHandler**
+* Created a shared **Core** project containing reusable abstractions and infrastructure components
+* Organized the solution into independent microservices
+* Configured dependency injection using marker interfaces
+* Standardized project structure across all services
+
+---
+
+## Microservices
+
+* Implemented independent **Basket Service**
+* Implemented **Product Service**
+* Implemented **Order Service**
+* Established synchronous service-to-service communication using **gRPC**
+* Defined shared gRPC contracts using Protocol Buffers
+* Configured gRPC clients and servers for inter-service communication
+* Prepared the solution for future service expansion
+
+---
 
 ## Domain-Driven Design
 
-* طراحی موجودیت‌های دامنه **Basket** و **BasketItem**
-* پیاده‌سازی قوانین دامنه (Domain Rules) داخل Entityها
-* پیاده‌سازی **Domain Events** و مکانیزم ثبت و انتشار آن‌ها
-* مدیریت انتشار Domain Eventها پس از ثبت تغییرات
+* Designed rich domain entities such as **Basket** and **BasketItem**
+* Encapsulated business rules inside domain entities
+* Implemented **Domain Events**
+* Implemented automatic domain event dispatching after successful transactions
+* Applied aggregate boundaries and domain encapsulation principles
 
-## پیاده‌سازی قابلیت‌های سبد خرید
+---
 
-* دریافت یا ایجاد سبد خرید کاربر
-* افزودن کالا به سبد خرید
-* تغییر تعداد کالا
-* حذف کالا از سبد خرید
-* خالی کردن کامل سبد خرید
-* پیاده‌سازی فرآیند **Expire Basket** و مدیریت وضعیت سبدهای منقضی
+## Basket Functionality
 
-## اعتبارسنجی و مدیریت خطا
+* Create or retrieve customer baskets
+* Add products to basket
+* Update item quantities
+* Remove items from basket
+* Clear basket
+* Basket expiration management
+* Scheduled expiration processing
 
-* پیاده‌سازی **ValidationBehavior** با MediatR Pipeline
-* اعتبارسنجی Commandها با استفاده از **FluentValidation**
-* طراحی و پیاده‌سازی **Domain Exception**
-* مدیریت متمرکز خطاها
-* طراحی و پیاده‌سازی **ServiceResult** و **ServiceResult<T>**
-* استانداردسازی خروجی API با استفاده از **ToApiResult**
+---
+
+## Validation & Error Handling
+
+* Implemented **ValidationBehavior** using MediatR Pipeline
+* Used **FluentValidation** for command validation
+* Implemented centralized exception handling middleware
+* Designed custom **Domain Exceptions**
+* Implemented **ServiceResult** and **ServiceResult<T>**
+* Standardized API responses using **ToApiResult**
+
+---
 
 ## Persistence
 
-* پیاده‌سازی **Repository Pattern** و **Unit of Work**
-* طراحی و پیاده‌سازی **IBasketRepository**
-* پیاده‌سازی Repositoryها با **Entity Framework Core**
-* پیاده‌سازی **Fluent API Configurations**
-* ایجاد **Migration** و ساختار پایگاه داده
-* استفاده از **AsNoTracking** در Queryها
-* استفاده از **CancellationToken** در Repositoryها و Handlerها
+* Implemented **Repository Pattern**
+* Implemented **Unit of Work**
+* Created specialized repositories
+* Implemented persistence using **Entity Framework Core**
+* Configured entities using **Fluent API**
+* Created database migrations
+* Optimized read operations using **AsNoTracking**
+* Applied asynchronous programming with **CancellationToken**
 
-## Pipeline و Transaction
+---
 
-* پیاده‌سازی **TransactionBehavior** برای مدیریت تراکنش‌ها
-* مدیریت Commit و Rollback تراکنش‌ها
-* Dispatch کردن Domain Eventها در پایان تراکنش
+## Pipeline & Cross-Cutting Concerns
 
-## Cache و Messaging
+* Implemented custom **TransactionBehavior**
+* Automatic transaction management
+* Commit/Rollback handling
+* Automatic Domain Event dispatching
+* Centralized dependency registration
+* Shared middleware and reusable infrastructure components
 
-* راه‌اندازی و پیکربندی **Redis**
-* پیاده‌سازی کش سبد خرید
-* ذخیره، بازیابی و **Cache Invalidation** پس از تغییرات
-* راه‌اندازی و پیکربندی **RabbitMQ**
-* راه‌اندازی و پیکربندی **MassTransit**
-* پیاده‌سازی **Background Service** برای اجرای دوره‌ای فرآیند منقضی‌سازی سبدها
+---
+
+## Caching & Messaging
+
+* Configured **Redis**
+* Implemented basket caching
+* Cache invalidation after updates
+* Configured **RabbitMQ**
+* Configured **MassTransit**
+* Implemented background services for scheduled tasks
+* Prepared infrastructure for asynchronous event-driven communication
+
+---
 
 ## API
 
-* پیاده‌سازی APIهای مربوط به سبد خرید
-* استانداردسازی پاسخ‌های API
-* استفاده از **Primary Constructors**
-* استفاده از **Expression-bodied Members** در بخش‌های مناسب پروژه
-* پیاده‌سازی عملیات **Asynchronous** در لایه‌های Application و Infrastructure
+* Implemented REST APIs for Basket operations
+* Standardized API responses
+* Used **Primary Constructors**
+* Applied **Expression-bodied Members** where appropriate
+* Fully asynchronous implementation across Application and Infrastructure layers
 
-## Docker
- 
-* Dockerize کردن پروژه
-* ایجاد **Dockerfile**
-* ایجاد **docker-compose**
-* راه‌اندازی **SQL Server**، **Redis**، **RabbitMQ** و **API** در Docker
-* پیکربندی ارتباط بین سرویس‌های Docker و مدیریت Connection Stringها
