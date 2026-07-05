@@ -36,9 +36,7 @@ public class ServiceResult
     /// <summary>
     /// ایجاد نتیجه ناموفق
     /// </summary>
-    public static ServiceResult Failure(
-        string message,
-        int statusCode = StatusCodes.Status400BadRequest)
+    public static ServiceResult Failure(string? message = null,int statusCode = StatusCodes.Status400BadRequest)
         => new()
         {
             IsSuccess = false,
