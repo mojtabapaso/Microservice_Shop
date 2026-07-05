@@ -4,7 +4,7 @@
 //namespace Order.Infrastructure.Services.MessageBus;
 
 
-//public class BasketEventPublisher: IScopedDependency, IBasketEventPublisher
+//public class BasketEventPublisher : IScopedDependency, IBasketEventPublisher
 //{
 //    private readonly IPublishEndpoint publishEndpoint;
 

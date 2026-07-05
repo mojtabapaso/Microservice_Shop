@@ -1,5 +1,4 @@
 ﻿using MassTransit;
-//using Order.Application.Basket.Events;
 
 //namespace Order.Infrastructure.Services.MessageBus;
 

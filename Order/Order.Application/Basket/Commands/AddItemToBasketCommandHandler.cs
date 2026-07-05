@@ -3,7 +3,6 @@ using MediatR;
 using Microservice.Core.ApiResult;
 using Microservice.Core.Interfaces;
 using Microservice.Core.Mediator;
-using Microsoft.EntityFrameworkCore;
 using Order.Application.Basket.Events;
 using Order.Infrastructure.Configurations;
 using Order.Infrastructure.Repositories;
