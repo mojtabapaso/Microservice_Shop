@@ -1,11 +1,18 @@
+using Microservice.Core;
+using Notification.Application;
+using Notification.Infrastructure;
+using Notification.Infrastructure.Configurations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSqlServer<DbContextNotification>(builder.Configuration);
+builder.Services.AddDependencyScanning<InfrastructureAssemblyReference>();
+builder.Services.AddApplicationMediator(typeof(ApplicationAssemblyReference).Assembly);
 
 var app = builder.Build();
 
