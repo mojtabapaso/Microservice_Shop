@@ -1,9 +1,11 @@
-﻿namespace Product.Domian.Entities;
+﻿using Microservice.Core;
 
-public class Product
+namespace Product.Domian.Entities;
+
+public class Product : BaseEntity
 {
     public long Id { get; private set; }
-
+    public Guid RowId { get; private set; } = Guid.NewGuid();
     public string Name { get; private set; } = null!;
 
     public string? Description { get; private set; }
@@ -32,7 +34,6 @@ public class Product
         Price = price;
         Stock = stock;
         SKU = sku;
-
         IsActive = true;
         CreatedAt = DateTime.UtcNow;
     }

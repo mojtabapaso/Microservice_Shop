@@ -2,6 +2,7 @@ using Microservice.Core;
 using Microservice.Core.Middleware;
 using Product.API.Grpc;
 using Product.Application;
+using Product.Application.Product.Events;
 using Product.Infrastructure;
 using Product.Infrastructure.Configurations;
 
@@ -16,7 +17,15 @@ builder.Services.AddSqlServer<DbContextProduct>(builder.Configuration);
 
 builder.Services.AddDependencyScanning<InfrastructureAssemblyReference>();
 builder.Services.AddApplicationMediator(typeof(ApplicationAssemblyReference).Assembly);
-
+builder.Services.AddRabbitMq(builder.Configuration, x =>
+{
+    x.AddConsumer<ProductCreatedConsumer>();
+    x.AddConsumer<ProductUpdatedConsumer>();
+    x.AddConsumer<ProductDeletedConsumer>();
+    x.AddConsumer<ProductPriceChangedConsumer>();
+});
+builder.Services.AddPipelineBehaviors();
+builder.Services.AddMongoDb(builder.Configuration);
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

@@ -11,4 +11,12 @@
     <ProjectReference Include="..\Product.Domian\Product.Domian.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Events\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="3.9.0" />
+  </ItemGroup>
+
 </Project>
