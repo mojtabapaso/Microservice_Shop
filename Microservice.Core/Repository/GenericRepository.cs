@@ -7,7 +7,7 @@ public class GenericRepository<TEntity, TContext> : IGenericRepository<TEntity>
     where TContext : DbContext
 {
     private readonly TContext context;
-    private DbSet<TEntity> _entity;
+    public DbSet<TEntity> _entity;
     public GenericRepository(TContext context)
     {
         this.context = context;
