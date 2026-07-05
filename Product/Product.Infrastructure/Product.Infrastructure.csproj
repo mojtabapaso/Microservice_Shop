@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microservice.Core\Microservice.Core.csproj" />
-    <ProjectReference Include="..\Notification.Domain\Notification.Domain.csproj" />
+    <ProjectReference Include="..\..\Microservice.Core\Microservice.Core.csproj" />
+    <ProjectReference Include="..\Product.Domian\Product.Domian.csproj" />
   </ItemGroup>
 
 </Project>
