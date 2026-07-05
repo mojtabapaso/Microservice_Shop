@@ -9,7 +9,7 @@ Communication between microservices is implemented using **gRPC** for high-perfo
 The application follows the **CQRS** pattern using **MediatR**, where commands, queries, and domain events are handled through a clean and extensible pipeline.
 
 ---
-
+![Microservices Architecture](images/image_microservice_shop.png)
 # Challenges
 
 The primary challenge of this project was not the implementation itself, but designing a clean architecture based on an incomplete and sometimes ambiguous requirements document.
