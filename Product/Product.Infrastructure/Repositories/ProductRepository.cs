@@ -13,10 +13,9 @@ public class ProductRepository : GenericRepository<Domain.Entities.Product, DbCo
         this.context = context;
     }
 
-    public async Task<Domain.Entities.Product> FindByRowIdAsync(Guid RowId)
+    public async Task<Domain.Entities.Product?> FindByRowIdAsync(Guid RowId)
     {
         var result = await _entity.Where(x => x.RowId == RowId).FirstOrDefaultAsync();
         return result;
-            
     }
 }

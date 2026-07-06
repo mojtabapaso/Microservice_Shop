@@ -12,9 +12,9 @@ public class Notification
     public long Id { get; private set; }
     public Guid UserId { get; private set; }
 
-    public string Title { get; private set; }
+    public string Title { get; private set; } = null!;
 
-    public string Message { get; private set; }
+    public string Message { get; private set; } = null!;
 
     public NotificationType Type { get; private set; }
 

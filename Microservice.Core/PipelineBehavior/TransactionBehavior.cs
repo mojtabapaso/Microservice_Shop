@@ -6,7 +6,7 @@ using Microservice.Core.Mediator;
 namespace Microservice.Core.PipelineBehavior;
 
 public class TransactionBehavior<TRequest, TResponse>(IUnitOfWork unitOfWork, IEventContext eventContext, IEventPublisher eventPublisher)
-                                : IPipelineBehavior<TRequest, TResponse>
+                                : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {

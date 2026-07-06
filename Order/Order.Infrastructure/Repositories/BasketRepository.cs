@@ -42,11 +42,11 @@ public class BasketRepository : GenericRepository<Basket, DbContextBasket>, ISco
     }
     public async Task<long> GetActiveBasketIdByUserId(long userId)
     {
-        var res = await context.Baskets
-         .FirstOrDefaultAsync(x =>
-             x.UserId == userId &&
-             x.Status == BasketStatus.Active).Select(x => x.Id);
-        return res;
+        return await context.Baskets
+            .Where(x => x.UserId == userId &&
+                        x.Status == BasketStatus.Active)
+            .Select(x => x.Id)
+            .FirstOrDefaultAsync();
     }
     public async Task<List<Basket>> GetExpiredBasketsAsync()
     {

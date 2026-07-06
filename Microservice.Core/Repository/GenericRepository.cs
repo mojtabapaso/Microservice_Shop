@@ -21,10 +21,10 @@ public class GenericRepository<TEntity, TContext> : IGenericRepository<TEntity>
         await _entity.AddAsync(entity);
     }
 
-    public TEntity FindById(long id)
+    public TEntity? FindById(long id)
         => _entity.Find(id);
 
-    public async Task<TEntity> FindByIdAsync(long id)
+    public async Task<TEntity?> FindByIdAsync(long id)
         => await _entity.FindAsync(id);
 
     public List<TEntity> GetAll()

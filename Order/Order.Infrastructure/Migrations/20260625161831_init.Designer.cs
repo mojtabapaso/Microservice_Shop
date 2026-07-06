@@ -14,7 +14,7 @@ namespace Order.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(DbContextBasket))]
     [Migration("20260625161831_init")]
-    partial class init
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

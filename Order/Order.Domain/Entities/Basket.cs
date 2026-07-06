@@ -26,7 +26,7 @@ public class Basket
 
     public BasketStatus Status { get; private set; }
 
-    public List<BasketItem> Items { get; private set; }
+    public List<BasketItem> Items { get; private set; } = new List<BasketItem>();
 
     public DateTime CreatedAt { get; private set; }
 

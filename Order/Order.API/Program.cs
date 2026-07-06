@@ -46,7 +46,10 @@ builder.Services.AddRedis(builder.Configuration);
 // Build Application
 builder.Services.AddGrpcClient <ProductService.ProductServiceClient> (options =>
 {
-    options.Address = new Uri(builder.Configuration["Grpc"]);
+    var grpcAddress = builder.Configuration["Grpc"]
+    ?? throw new InvalidOperationException("Grpc configuration is missing.");
+
+    options.Address = new Uri(grpcAddress);
 });
 
 // ------------------------------------------------------------
