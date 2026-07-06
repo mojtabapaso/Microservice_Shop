@@ -11,7 +11,7 @@ public sealed class DeleteProductCommandHandler(IProductRepository productReposi
 {
     public async Task<ServiceResult> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await productRepository.FindByIdAsync(request.ProductId);
+        var product = await productRepository.FindByIdAsync(request.DeleteProductDto.ProductId);
         if (product is null)
             return ServiceResult.Failure();
         productRepository.Remove(product);
