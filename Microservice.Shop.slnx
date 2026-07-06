@@ -14,10 +14,10 @@
   <Folder Name="/Product/">
     <Project Path="Product/Product.API/Product.API.csproj" />
     <Project Path="Product/Product.Application/Product.Application.csproj" />
-    <Project Path="Product/Product.Domian/Product.Domain.csproj" />
+    <Project Path="Product/Product.Domain/Product.Domain.csproj" />
     <Project Path="Product/Product.Infrastructure/Product.Infrastructure.csproj" />
   </Folder>
   <Project Path="ApiGateway/ApiGateway.csproj" Id="734713b9-90a3-437a-b050-81ca82c5bf9b" />
-  <Project Path="Grpc.Contracts/Microservice.Contracts.csproj" Id="df7a4190-c88e-46a2-808c-4cbbac984630" />
+  <Project Path="Microservice.Contracts/Microservice.Contracts.csproj" />
   <Project Path="Microservice.Core/Microservice.Core.csproj" Id="3a31add6-ce83-4823-b4c5-f11ffebe69b5" />
 </Solution>
