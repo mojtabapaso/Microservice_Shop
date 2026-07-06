@@ -26,7 +26,7 @@ builder.Services.AddRabbitMq(builder.Configuration, x =>
     x.AddConsumer<ProductPriceChangedConsumer>();
 });
 builder.Services.AddPipelineBehaviors();
-
+builder.Services.AddEventPublisher();
 builder.Services.AddAutoMapper(x=>x.AddProfile(typeof(ProductMappingProfile)));
 
 builder.Services.AddMongoDb(builder.Configuration);

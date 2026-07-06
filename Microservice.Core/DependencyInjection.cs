@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using MediatR;
+using Microservice.Core.EventPublisher;
 using Microservice.Core.Interfaces;
 using Microservice.Core.Mediator;
 using Microsoft.EntityFrameworkCore;
@@ -86,6 +87,12 @@ public static class DependencyInjection
                 .WithSingletonLifetime());
         services.AddScoped<ICommandDispatcher, CommandDispatcher>();
         services.AddScoped<IQueryDispatcher, QueryDispatcher>();
+        return services;
+    }
+    public static IServiceCollection AddEventPublisher(this IServiceCollection services)
+    {
+        services.AddScoped<IEventContext, EventContext>();
+        services.AddScoped<IEventPublisher, EventPublisher.EventPublisher>();
         return services;
     }
 }

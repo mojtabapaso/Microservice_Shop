@@ -1,9 +1,9 @@
 ﻿using MassTransit;
-using Microservice.Core.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Microservice.Core.EventPublisher;
 
-public class EventPublisher(IPublishEndpoint publishEndpoint) : IScopedDependency, IEventPublisher
+public class EventPublisher(IPublishEndpoint publishEndpoint) : IEventPublisher
 {
     public async Task PublishAsync<TEvent>(TEvent @event, CancellationToken cancellationToken = default) where TEvent : IEvent
     {
@@ -18,7 +18,7 @@ public interface IEventContext
 
     void Clear();
 }
-public sealed class EventContext : IScopedDependency, IEventContext
+public sealed class EventContext : IEventContext
 {
     private readonly List<IEvent> _events = [];
 

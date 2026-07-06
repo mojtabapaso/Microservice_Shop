@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Microservice.Core\Microservice.Core.csproj" />
     <ProjectReference Include="..\Notification.Application\Notification.Application.csproj" />
+    <ProjectReference Include="..\Notification.Domain\Notification.Domain.csproj" />
     <ProjectReference Include="..\Notification.Infrastructure\Notification.Infrastructure.csproj" />
   </ItemGroup>
 

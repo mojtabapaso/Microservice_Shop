@@ -25,7 +25,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Grpc.Contracts\Grpc.Contracts.csproj" />
+	  <ProjectReference Include="..\..\Grpc.Contracts\Microservice.Contracts.csproj" />
 	  <ProjectReference Include="..\..\Microservice.Core\Microservice.Core.csproj" />
 	  <ProjectReference Include="..\Product.Application\Product.Application.csproj" />
 	  <ProjectReference Include="..\Product.Domian\Product.Domain.csproj" />

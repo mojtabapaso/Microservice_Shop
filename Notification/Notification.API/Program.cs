@@ -11,9 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSqlServer<DbContextNotification>(builder.Configuration);
-builder.Services.AddDependencyScanning<InfrastructureAssemblyReference>();
 builder.Services.AddApplicationMediator(typeof(ApplicationAssemblyReference).Assembly);
-
+builder.Services.AddDependencyScanning<InfrastructureAssemblyReference>();
+//builder.Services.AddRabbitMq(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
