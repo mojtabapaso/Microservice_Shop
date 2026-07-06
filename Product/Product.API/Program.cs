@@ -2,9 +2,11 @@ using Microservice.Core;
 using Microservice.Core.Middleware;
 using Product.API.Grpc;
 using Product.Application;
+using Product.Application.Mappings;
 using Product.Application.Product.Events;
 using Product.Infrastructure;
 using Product.Infrastructure.Configurations;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,9 @@ builder.Services.AddRabbitMq(builder.Configuration, x =>
     x.AddConsumer<ProductPriceChangedConsumer>();
 });
 builder.Services.AddPipelineBehaviors();
+
+builder.Services.AddAutoMapper(x=>x.AddProfile(typeof(ProductMappingProfile)));
+
 builder.Services.AddMongoDb(builder.Configuration);
 var app = builder.Build();
 
