@@ -24,9 +24,9 @@ public class ProductController(ICommandDispatcher commandDispatcher,IQueryDispat
         return res.ToApiResult();
     }
     [HttpDelete("[Action]")]
-    public async Task<IActionResult> Delete([FromBody] long productId, CancellationToken cancellationToken)
+    public async Task<IActionResult> Delete(DeleteProductDto deleteProductDto, CancellationToken cancellationToken)
     {
-        var res = await commandDispatcher.Dispatch(new DeleteProductCommand(productId), cancellationToken);
+        var res = await commandDispatcher.Dispatch(new DeleteProductCommand(deleteProductDto), cancellationToken);
         return res.ToApiResult();
     }
     [HttpPatch("[Action]")]
