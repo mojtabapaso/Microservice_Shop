@@ -27,15 +27,15 @@ public class BasketController(IQueryDispatcher queryDispatcher, ICommandDispatch
         return result.ToApiResult();
     }
 
-    [HttpPut("/{userId:long}/items/{productId:long}/quantity/{newQuantity:int}/")]
-    public async Task<IActionResult> Update(long userId, long productId, int newQuantity, CancellationToken cancellationToken)
+    [HttpPut("/{userId:long}/items/{productId:guid}/quantity/{newQuantity:int}/")] // TODO change to use dto
+    public async Task<IActionResult> Update(long userId, Guid productId, int newQuantity, CancellationToken cancellationToken)
     {
         var result = await commandDispatcher.Dispatch(new UpdateBasketItemQuantityCommand(userId, productId, newQuantity), cancellationToken);
         return result.ToApiResult();
     }
 
-    [HttpDelete("/{userId:long}/items/{productId:long}")]
-    public async Task<IActionResult> DeleteOne(long userId, long productId, CancellationToken cancellationToken)
+    [HttpDelete("/{userId:long}/items/{productId:guid}")]
+    public async Task<IActionResult> DeleteOne(long userId, Guid productId, CancellationToken cancellationToken)
     {
         var result = await commandDispatcher.Dispatch(new RemoveBasketItemCommand(userId, productId), cancellationToken);
         return result.ToApiResult();
