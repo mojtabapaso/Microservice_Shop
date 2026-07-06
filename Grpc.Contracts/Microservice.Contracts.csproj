@@ -16,8 +16,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="Protos\basket.proto" GrpcServices="Both"/>
-		<Protobuf Include="Protos\product.proto" GrpcServices="Both"/>
+		<Protobuf Include="Protos\basket.proto" GrpcServices="Both" />
+		<Protobuf Include="Protos\product.proto" GrpcServices="Both" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="NewFolder\" />
 	</ItemGroup>
 
 </Project>
