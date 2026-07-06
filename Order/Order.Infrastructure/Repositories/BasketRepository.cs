@@ -58,18 +58,9 @@ public class BasketRepository : GenericRepository<Basket, DbContextBasket>, ISco
         return baskets;
     }
 
-    //public void RemoveBasketByUserId(long UserId)
-    //{
-    //    var baskets =  context.Baskets
-    //    .Include(x => x.Items)
-    //    .Where(x => x.UserId == UserId);
-    //    context.Baskets.RemoveRange(baskets);
-    //}
-
-    //public void RemoveBasketItemByUserIdAndProductId(long UserId, long ProductId)
-    //{
-    //    //context.BasketItems.Include(x=>x.Id == x.ProductId )
-    //    var basket = context.Baskets.Include(x => x.Items).Where(x => x.UserId == UserId && x.Items.Any(x => x.ProductId == ProductId));
-    //    context.Remove(basket);
-    //}
+    public async Task<List<Basket>> GetBasketsByProductIdAsync(Guid productId,CancellationToken cancellationToken)
+    {
+        return await context.Baskets.Include(x => x.Items).Where(x => x.Items.Any(i => i.ProductId == productId))
+            .ToListAsync(cancellationToken);
+    }
 }

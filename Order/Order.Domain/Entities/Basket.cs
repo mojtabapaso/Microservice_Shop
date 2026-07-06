@@ -43,7 +43,7 @@ public class Basket
     /// <summary>
     /// افزودن کالا به سبد خرید
     /// </summary>
-    public void AddItem(long productId, int quantity, decimal unitPrice = 0)
+    public void AddItem(Guid productId, int quantity, decimal unitPrice = 0)
     {
         var existingItem = Items
             .FirstOrDefault(x => x.ProductId == productId);
@@ -86,7 +86,7 @@ public class Basket
     /// <summary>
     /// بروزرسانی تعداد یک کالا در سبد خرید
     /// </summary>
-    public void UpdateQuantity(long productId, int newQuantity)
+    public void UpdateQuantity(Guid productId, int newQuantity)
     {
         // تعداد هر کالا در سبد نباید از 10 عدد بیشتر شود.
         if (newQuantity > 10)
@@ -106,7 +106,7 @@ public class Basket
     /// <summary>
     /// حذف یک کالا از سبد خرید
     /// </summary>
-    public void RemoveItem(long productId)
+    public void RemoveItem(Guid productId)
     {
         var item = Items.FirstOrDefault(x => x.ProductId == productId);
 
@@ -129,7 +129,7 @@ public class Basket
     /// <summary>
     /// تغییر تعداد یک کالا در سبد خرید
     /// </summary>
-    public void NewQuantity(long productId, int newQuantity)
+    public void NewQuantity(Guid productId, int newQuantity)
     {
         var item = Items.FirstOrDefault(x => x.ProductId == productId);
 
@@ -145,5 +145,18 @@ public class Basket
         // فقط آیتم‌های سبد حذف می‌شوند و خود سبد باقی می‌ماند.
         // این متد محل مناسبی برای افزودن منطق‌های احتمالی آینده نیز خواهد بود.
         Items.Clear();
+    }
+    public void ChangeProductPrice(Guid productId, decimal newPrice)
+    {
+        var item = Items.FirstOrDefault(x => x.ProductId == productId);
+
+        if (item is null)
+            return;
+
+        item.ChangeUnitPrice(newPrice);
+
+        ValidateTotalPrice();
+
+        MarkAsUpdated();
     }
 }

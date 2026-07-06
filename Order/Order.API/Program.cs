@@ -1,9 +1,10 @@
 using FluentValidation;
-using Grpc.Contracts.Product.Protos;
+using Microservice.Contracts.Product.Protos;
 using Microservice.Core;
 using Microservice.Core.Middleware;
 using Microsoft.IdentityModel.Tokens.Experimental;
 using Order.Application;
+using Order.Application.Consumers;
 using Order.Infrastructure;
 using Order.Infrastructure.Configurations;
 
@@ -32,10 +33,11 @@ builder.Services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyReferenc
 builder.Services.AddPipelineBehaviors();
 // RabbitMQ (MassTransit)
 // ------------------------------------------------------------
-//builder.Services.AddRabbitMq(builder.Configuration, x =>
-//{
-//    x.AddConsumer<BasketEventConsumer>();
-//});
+builder.Services.AddRabbitMq(builder.Configuration, x =>
+{
+    x.AddConsumer<ProductPriceChangedConsumer>();
+});
+builder.Services.AddEventPublisher();
 // ------------------------------------------------------------
 // Redis
 // ------------------------------------------------------------
@@ -45,7 +47,6 @@ builder.Services.AddGrpcClient <ProductService.ProductServiceClient> (options =>
 {
     options.Address = new Uri(builder.Configuration["Grpc"]);
 });
-
 
 // ------------------------------------------------------------
 var app = builder.Build();

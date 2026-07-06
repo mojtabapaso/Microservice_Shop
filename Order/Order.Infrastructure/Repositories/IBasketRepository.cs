@@ -10,5 +10,6 @@ public interface IBasketRepository : IGenericRepository<Basket>
     Task<Basket?> GetBasketByUserIdAsync(long userId);
     Task<long> GetActiveBasketIdByUserId(long userId);
     Task<List<Basket>> GetExpiredBasketsAsync();
+    Task<List<Basket>> GetBasketsByProductIdAsync(Guid productId,CancellationToken cancellationToken);
 
 }

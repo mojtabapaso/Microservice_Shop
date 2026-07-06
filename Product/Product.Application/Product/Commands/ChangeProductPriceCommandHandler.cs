@@ -1,4 +1,5 @@
-﻿using Microservice.Core.ApiResult;
+﻿using Microservice.Contracts.IntegrationEvent;
+using Microservice.Core.ApiResult;
 using Microservice.Core.EventPublisher;
 using Microservice.Core.Mediator;
 using Product.Application.Product.Events;
@@ -16,7 +17,7 @@ public sealed class ChangeProductPriceCommandHandler(IProductRepository productR
             return ServiceResult.Failure();
         product.ChangePrice(request.ChangeProductPriceDto.NewPrice);
         productRepository.Update(product);
-        eventContext.Add(new ProductPriceChangedEvent(product.Id));
+        eventContext.Add(new ProductPriceChangedEvent(product.RowId, request.ChangeProductPriceDto.NewPrice));
 
         //await productRepository.SaveChangesAsync(cancellationToken);
         return ServiceResult.Success();

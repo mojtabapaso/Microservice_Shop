@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Grpc.Contracts.Product.Protos";
+option csharp_namespace = "Microservice.Contracts.Product.Protos";
 // ChangeProduct
 message ChangeProductRequestDto{
 	int32 ProductId = 1;
@@ -13,7 +13,7 @@ message ChangeProductResponceDto{
 }
 
 message GetProductDataRequestDto{
-	int32 ProductId = 1;
+	string ProductId = 1;
 }
 message GetProductDataResponceDto{
 	int64 Price = 2; 

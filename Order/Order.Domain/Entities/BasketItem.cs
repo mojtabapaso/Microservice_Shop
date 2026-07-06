@@ -9,7 +9,7 @@ public class BasketItem
     {
     }
 
-    public BasketItem(long productId, int quantity, decimal unitPrice)
+    public BasketItem(Guid productId, int quantity, decimal unitPrice)
     {
         ProductId = productId;
         Quantity = quantity;
@@ -18,7 +18,7 @@ public class BasketItem
 
     public long Id { get; private set; }
 
-    public long ProductId { get; private set; }
+    public Guid ProductId { get; private set; }
 
     public int Quantity { get; private set; }
 
@@ -42,5 +42,9 @@ public class BasketItem
     public void SetQuantity(int quantity)
     {
         Quantity = quantity;
+    }
+    public void ChangeUnitPrice(decimal unitPrice)
+    {
+        UnitPrice = unitPrice;
     }
 }

@@ -23,7 +23,7 @@ builder.Services.AddRabbitMq(builder.Configuration, x =>
     x.AddConsumer<ProductCreatedConsumer>();
     x.AddConsumer<ProductUpdatedConsumer>();
     x.AddConsumer<ProductDeletedConsumer>();
-    x.AddConsumer<ProductPriceChangedConsumer>();
+    //x.AddConsumer<ProductPriceChangedConsumer>();
 });
 builder.Services.AddPipelineBehaviors();
 builder.Services.AddEventPublisher();

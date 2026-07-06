@@ -16,12 +16,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="Protos\basket.proto" GrpcServices="Both" />
-		<Protobuf Include="Protos\product.proto" GrpcServices="Both" />
+	  <ProjectReference Include="..\Microservice.Core\Microservice.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="NewFolder\" />
+		<Protobuf Include="Protos\basket.proto" GrpcServices="Both" />
+		<Protobuf Include="Protos\product.proto" GrpcServices="Both" />
 	</ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using Grpc.Contracts.Product.Protos;
+﻿using Microservice.Contracts.Product.Protos;
 using Grpc.Core;
 using Product.Infrastructure.Repositories;
 
@@ -13,9 +13,8 @@ public class ProductServiesServer(IProductRepository productRepository) : Produc
     }
     public async override Task<GetProductDataResponceDto> GetProductData(GetProductDataRequestDto request, ServerCallContext context)
     {
-        //var product = await productRepository.FindByIdAsync(request.ProductId);
-        //var res =   new GetProductDataResponceDto { Price = product.Price };
-        var res = new GetProductDataResponceDto { Price = 12_000 };
+        var product = await productRepository.FindByRowIdAsync(Guid.Parse(request.ProductId));
+        var res = new GetProductDataResponceDto { Price = product.Price };
         return res;
     }
 }

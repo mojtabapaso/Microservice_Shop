@@ -1,4 +1,4 @@
-﻿using Grpc.Contracts.Product.Protos;
+﻿using Microservice.Contracts.Product.Protos;
 using MediatR;
 using Microservice.Core.ApiResult;
 using Microservice.Core.Interfaces;
@@ -6,7 +6,7 @@ using Microservice.Core.Mediator;
 using Order.Application.Basket.Events;
 using Order.Infrastructure.Configurations;
 using Order.Infrastructure.Repositories;
-using static Grpc.Contracts.Product.Protos.ProductService;
+using static Microservice.Contracts.Product.Protos.ProductService;
 using BasketEntity = Order.Domain.Entities.Basket;
 
 namespace Order.Application.Basket.Commands;
@@ -21,7 +21,7 @@ public class AddItemToBasketCommandHandler(IBasketRepository basketRepository, I
     public async Task<ServiceResult> Handle(AddItemToBasketCommand request, CancellationToken cancellationToken)
     {
         //
-        var reee = await productServiceClient.GetProductDataAsync(new GetProductDataRequestDto { ProductId = 1}
+        var reee = await productServiceClient.GetProductDataAsync(new GetProductDataRequestDto { ProductId = request.ProductId.ToString()}
         ,deadline:DateTime.UtcNow.AddSeconds(5), cancellationToken: cancellationToken);
 
         // دریافت سبد خرید فعال کاربر (به همراه آیتم‌های آن)

@@ -3,4 +3,4 @@ using Microservice.Core.Mediator;
 
 namespace Order.Application.Basket.Commands;
 
-public record UpdateBasketItemQuantityCommand(long UserId, long ProductId, int NewQuantity) : ICommand<ServiceResult>;
+public record UpdateBasketItemQuantityCommand(long UserId, Guid ProductId, int NewQuantity) : ICommand<ServiceResult>;

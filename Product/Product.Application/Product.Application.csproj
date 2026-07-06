@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Grpc.Contracts\Microservice.Contracts.csproj" />
     <ProjectReference Include="..\Product.Domian\Product.Domain.csproj" />
     <ProjectReference Include="..\Product.Infrastructure\Product.Infrastructure.csproj" />
   </ItemGroup>

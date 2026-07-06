@@ -9,14 +9,9 @@ namespace Order.Application.Basket.Commands;
 /// <summary>
 /// هندلر مربوط به حذف یک آیتم از سبد خرید
 /// </summary>
-public class RemoveBasketItemCommandHandler(
-    IBasketRepository basketRepository,
-    IMediator mediator)
-    : ICommandHandler<RemoveBasketItemCommand, ServiceResult>
+public class RemoveBasketItemCommandHandler(IBasketRepository basketRepository,IMediator mediator) : ICommandHandler<RemoveBasketItemCommand, ServiceResult>
 {
-    public async Task<ServiceResult> Handle(
-        RemoveBasketItemCommand request,
-        CancellationToken cancellationToken)
+    public async Task<ServiceResult> Handle(RemoveBasketItemCommand request, CancellationToken cancellationToken)
     {
         // دریافت سبد خرید کاربر به همراه تمامی آیتم‌های آن
         var basket = await basketRepository

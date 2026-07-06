@@ -3,8 +3,4 @@ using Microservice.Core.Mediator;
 
 namespace Order.Application.Basket.Commands;
 
-public record AddItemToBasketCommand(long UserId, long ProductId, int Quantity, decimal UunitPrice) : ICommand<ServiceResult>;
-/*
- unitPriceke
-نگفته شده بود توی تسک اش
- */
+public record AddItemToBasketCommand(long UserId, Guid ProductId, int Quantity, decimal UunitPrice) : ICommand<ServiceResult>;
