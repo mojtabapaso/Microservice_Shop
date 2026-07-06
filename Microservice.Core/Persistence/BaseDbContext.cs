@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microservice.Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Microservice.Core.Interfaces;
+namespace Microservice.Core.Persistence;
 
 public abstract class BaseDbContext : DbContext, IUnitOfWork
 {

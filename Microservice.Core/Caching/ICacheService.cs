@@ -1,4 +1,4 @@
-﻿namespace Microservice.Core.Repository;
+﻿namespace Microservice.Core.Caching;
 
 public interface ICacheService
 {

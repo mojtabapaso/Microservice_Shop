@@ -1,4 +1,4 @@
-﻿using Microservice.Core.Interfaces;
+﻿using Microservice.Core.Persistence;
 using Microsoft.EntityFrameworkCore;
 namespace Notification.Infrastructure.Configurations;
 

@@ -1,4 +1,4 @@
-using Microservice.Core;
+using Microservice.Core.Extensions;
 using Microservice.Core.Middleware;
 using Product.API.Grpc;
 using Product.Application;

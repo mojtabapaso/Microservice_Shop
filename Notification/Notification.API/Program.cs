@@ -1,4 +1,5 @@
 using Microservice.Core;
+using Microservice.Core.Extensions;
 using Notification.Application;
 using Notification.Infrastructure;
 using Notification.Infrastructure.Configurations;

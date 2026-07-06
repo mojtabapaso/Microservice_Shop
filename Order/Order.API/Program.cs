@@ -1,6 +1,7 @@
 using FluentValidation;
 using Microservice.Contracts.Product.Protos;
 using Microservice.Core;
+using Microservice.Core.Extensions;
 using Microservice.Core.Middleware;
 using Microsoft.IdentityModel.Tokens.Experimental;
 using Order.Application;

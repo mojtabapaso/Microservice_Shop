@@ -1,4 +1,4 @@
-﻿using Microservice.Core.Repository;
+﻿using Microservice.Core.Caching;
 
 namespace Order.Infrastructure.Cache;
 

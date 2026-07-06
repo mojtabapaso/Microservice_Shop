@@ -1,7 +1,7 @@
 ﻿using StackExchange.Redis;
 using System.Text.Json;
 
-namespace Microservice.Core.Repository;
+namespace Microservice.Core.Caching;
 
 public class CacheService : ICacheService
 {

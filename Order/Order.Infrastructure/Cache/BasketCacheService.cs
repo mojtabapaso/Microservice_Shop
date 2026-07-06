@@ -1,5 +1,5 @@
-﻿using Microservice.Core.Interfaces;
-using Microservice.Core.Repository;
+﻿using Microservice.Core.Caching;
+using Microservice.Core.Interfaces;
 using StackExchange.Redis;
 
 namespace Order.Infrastructure.Cache;
