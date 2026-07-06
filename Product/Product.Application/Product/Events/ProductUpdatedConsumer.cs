@@ -9,6 +9,7 @@ public class ProductUpdatedConsumer(IProductMongoRepository productMongoReposito
     public async Task Consume(ConsumeContext<ProductUpdatedEvent> context)
     {
         var product = await productRepository.FindByRowIdAsync(context.Message.ProductId);
+        if (product is null) return;
         await productMongoRepository.UpsertAsync(new ProductDocument
         {
             Id = product.RowId,
