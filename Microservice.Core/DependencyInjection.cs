@@ -3,6 +3,7 @@ using MediatR;
 using Microservice.Core.EventPublisher;
 using Microservice.Core.Interfaces;
 using Microservice.Core.Mediator;
+using Microservice.Core.PipelineBehavior;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

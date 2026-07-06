@@ -1,13 +1,12 @@
-﻿using MassTransit.Contracts;
-using MediatR;
+﻿using MediatR;
 using Microservice.Core.EventPublisher;
 using Microservice.Core.Interfaces;
 using Microservice.Core.Mediator;
 
-namespace Microservice.Core;
+namespace Microservice.Core.PipelineBehavior;
 
-public class TransactionBehavior<TRequest, TResponse>(IUnitOfWork unitOfWork,
-    IEventContext eventContext,IEventPublisher eventPublisher) : IPipelineBehavior<TRequest, TResponse>
+public class TransactionBehavior<TRequest, TResponse>(IUnitOfWork unitOfWork, IEventContext eventContext, IEventPublisher eventPublisher)
+                                : IPipelineBehavior<TRequest, TResponse>
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
@@ -19,12 +18,11 @@ public class TransactionBehavior<TRequest, TResponse>(IUnitOfWork unitOfWork,
             var response = await next();
             await unitOfWork.SaveChangesAsync(cancellationToken);
             await unitOfWork.CommitAsync(cancellationToken);
-            //raise event message brocker TODO splelate later
+            //TODO raise event message brocker  splelate later
             foreach (var @event in eventContext.Events)
             {
                 await eventPublisher.PublishAsync(@event, cancellationToken);
             }
-
             eventContext.Clear();
             return response;
         }
