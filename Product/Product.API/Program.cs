@@ -6,7 +6,6 @@ using Product.Application.Mappings;
 using Product.Application.Product.Events;
 using Product.Infrastructure;
 using Product.Infrastructure.Configurations;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 

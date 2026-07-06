@@ -1,7 +1,7 @@
 ﻿using Microservice.Core.Interfaces;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using Product.Domian.Documents;
+using Product.Domain.Documents;
 
 namespace Product.Infrastructure.Configurations;
 

@@ -5,7 +5,7 @@ using Product.Infrastructure.Configurations;
 
 namespace Product.Infrastructure.Repositories;
 
-public class ProductRepository : GenericRepository<Domian.Entities.Product, DbContextProduct>, IScopedDependency, IProductRepository
+public class ProductRepository : GenericRepository<Domain.Entities.Product, DbContextProduct>, IScopedDependency, IProductRepository
 {
     private DbContextProduct context;
     public ProductRepository(DbContextProduct context) : base(context)
@@ -13,7 +13,7 @@ public class ProductRepository : GenericRepository<Domian.Entities.Product, DbCo
         this.context = context;
     }
 
-    public async Task<Domian.Entities.Product> FindByRowIdAsync(Guid RowId)
+    public async Task<Domain.Entities.Product> FindByRowIdAsync(Guid RowId)
     {
         var result = await _entity.Where(x => x.RowId == RowId).FirstOrDefaultAsync();
         return result;

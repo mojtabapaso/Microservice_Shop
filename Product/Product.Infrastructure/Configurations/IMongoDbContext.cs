@@ -1,5 +1,5 @@
 ﻿using MongoDB.Driver;
-using Product.Domian.Documents;
+using Product.Domain.Documents;
 
 namespace Product.Infrastructure.Configurations;
 

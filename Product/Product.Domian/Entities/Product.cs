@@ -1,11 +1,11 @@
 ﻿using Microservice.Core;
 
-namespace Product.Domian.Entities;
+namespace Product.Domain.Entities;
 
 public class Product : BaseEntity
 {
     public long Id { get; private set; }
-    public Guid RowId { get; private set; } = Guid.NewGuid();
+    public Guid RowId { get; private set; }
     public string Name { get; private set; } = null!;
 
     public string? Description { get; private set; }
@@ -36,6 +36,7 @@ public class Product : BaseEntity
         SKU = sku;
         IsActive = true;
         CreatedAt = DateTime.UtcNow;
+        RowId = Guid.NewGuid();
     }
 
     public void UpdateInformation(string name,string? description, long price, string sku)

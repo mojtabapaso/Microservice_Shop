@@ -1,5 +1,5 @@
 ﻿using MassTransit;
-using Product.Domian.Documents;
+using Product.Domain.Documents;
 using Product.Infrastructure.Repositories;
 
 namespace Product.Application.Product.Events;
