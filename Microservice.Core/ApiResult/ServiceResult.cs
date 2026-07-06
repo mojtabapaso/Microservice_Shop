@@ -47,9 +47,7 @@ public class ServiceResult
     /// <summary>
     /// ایجاد نتیجه در صورت پیدا نشدن داده
     /// </summary>
-    public static ServiceResult NotFound(
-        string message,
-        int statusCode = StatusCodes.Status404NotFound)
+    public static ServiceResult NotFound(string message, int statusCode = StatusCodes.Status404NotFound)
         => new()
         {
             IsSuccess = false,

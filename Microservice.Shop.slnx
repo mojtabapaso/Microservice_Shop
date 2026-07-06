@@ -14,7 +14,7 @@
   <Folder Name="/Product/">
     <Project Path="Product/Product.API/Product.API.csproj" />
     <Project Path="Product/Product.Application/Product.Application.csproj" />
-    <Project Path="Product/Product.Domian/Product.Domian.csproj" />
+    <Project Path="Product/Product.Domian/Product.Domain.csproj" />
     <Project Path="Product/Product.Infrastructure/Product.Infrastructure.csproj" />
   </Folder>
   <Project Path="ApiGateway/ApiGateway.csproj" Id="734713b9-90a3-437a-b050-81ca82c5bf9b" />
