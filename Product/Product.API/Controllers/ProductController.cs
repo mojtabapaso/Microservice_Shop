@@ -1,5 +1,6 @@
 using Microservice.Core.ApiResult;
 using Microservice.Core.Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Product.Application.Product.Commands;
 using Product.Application.Product.DTOs;
@@ -8,6 +9,7 @@ using Product.Application.Product.Queries;
 namespace Product.API.Controllers;
 
 [ApiController]
+[Authorize(Roles = "Admin")]
 [Route("[controller]")]
 public class ProductController(ICommandDispatcher commandDispatcher,IQueryDispatcher queryDispatcher) : ControllerBase
 {
@@ -43,6 +45,7 @@ public class ProductController(ICommandDispatcher commandDispatcher,IQueryDispat
         return res.ToApiResult();
     }
     //customer
+    [AllowAnonymous]
     [HttpPost("[Action]")]
     public async Task<IActionResult> GetProductByPublicId(GetProductByPublicIdDto  getProductByPublicIdDto, CancellationToken cancellationToken)
     {
