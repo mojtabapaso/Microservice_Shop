@@ -1,60 +1,152 @@
-version: '3.8'
+version: "3.9"
 
 services:
-  basket:
+
+  #################################################
+  # API Gateway
+  #################################################
+
+  apigateway:
+    container_name: apigateway
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: basket-api
+      dockerfile: ApiGateway/Dockerfile
     ports:
-      - "8080:80"
-    environment:
-      ASPNETCORE_ENVIRONMENT: Development
-
-      ConnectionStrings__SqlServer: "Server=db;Database=Basket;User Id=sa;Password=Your_password123;TrustServerCertificate=True"
-
-      ConnectionStrings__Redis: "redis:6379"
-
-      RabbitMq__Host: "rabbitmq"
-      RabbitMq__Username: "guest"
-      RabbitMq__Password: "guest"
-
+      - "5000:8080"
     depends_on:
-      - db
-      - redis
-      - rabbitmq
+      - product.api
+      - order.api
+      - notification.api
+      - keycloak
+    networks:
+      - microservice-network
 
-    restart: unless-stopped
+  #################################################
+  # Product Service
+  #################################################
 
-  db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: basket-db
-    environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: "Your_password123"
+  product.api:
+    container_name: product.api
+    build:
+      context: .
+      dockerfile: Product/Dockerfile
     ports:
-      - "1433:1433"
-    volumes:
-      - mssql-data:/var/opt/mssql
-    restart: unless-stopped
+      - "7001:8080"
+    networks:
+      - microservice-network
+    depends_on:
+       - rabbitmq
+  #################################################
+  # Order Service
+  #################################################
 
-  redis:
-    image: redis:7-alpine
-    container_name: basket-redis
+  order.api:
+    container_name: order.api
+    build:
+      context: .
+      dockerfile: Order/Dockerfile
     ports:
-      - "6379:6379"
-    restart: unless-stopped
+      - "7002:8080"
+    networks:
+      - microservice-network
+    depends_on:
+       - rabbitmq
+  #################################################
+  # Notification Service
+  #################################################
 
+  notification.api:
+    container_name: notification.api
+    build:
+      context: .
+      dockerfile: Notification/Dockerfile
+    ports:
+      - "7003:8080"
+    networks:
+      - microservice-network
+    depends_on:
+       - rabbitmq
+  #################################################
+  # Rabbitmq 
+  #################################################
   rabbitmq:
-    image: rabbitmq:3-management
-    container_name: basket-rabbitmq
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    restart: always
+
     ports:
       - "5672:5672"
       - "15672:15672"
+
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
-    restart: unless-stopped
+
+    networks:
+      - microservice-network
+  #################################################
+  # PostgreSQL (Keycloak)
+  #################################################
+
+  keycloak-db:
+    image: postgres:17
+    container_name: keycloak-db
+    restart: always
+
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - keycloak-db-data:/var/lib/postgresql/data
+
+    networks:
+      - microservice-network
+
+  #################################################
+  # Keycloak
+  #################################################
+
+  keycloak:
+    image: keycloak/keycloak:26.6.4
+    container_name: keycloak
+
+    command: start-dev
+
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+
+      KC_DB: postgres
+      KC_DB_URL_HOST: keycloak-db
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+
+    depends_on:
+      - keycloak-db
+
+    ports:
+      - "7004:8080"
+
+    networks:
+      - microservice-network
+
+#################################################
+# Network
+#################################################
+
+networks:
+  microservice-network:
+    driver: bridge
+
+#################################################
+# Volumes
+#################################################
 
 volumes:
-  mssql-data:
+  keycloak-db-data:
