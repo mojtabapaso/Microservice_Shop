@@ -1,5 +1,4 @@
-﻿using Microservice.Core.EventPublisher;
-using Microservice.Core.Interfaces;
+﻿using Microservice.Core.Interfaces;
 using Microservice.Core.Mediator;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,16 +23,6 @@ public static class ScanningExtensions
                 .WithSingletonLifetime());
         services.AddScoped<ICommandDispatcher, CommandDispatcher>();
         services.AddScoped<IQueryDispatcher, QueryDispatcher>();
-        return services;
-    }
-}
-
-public static class AddEventPublisherExtensions
-{
-    public static IServiceCollection AddEventPublisher(this IServiceCollection services)
-    {
-        services.AddScoped<IEventContext, EventContext>();
-        services.AddScoped<IEventPublisher, EventPublisher.EventPublisher>();
         return services;
     }
 }

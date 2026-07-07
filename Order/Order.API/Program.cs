@@ -1,9 +1,7 @@
 using FluentValidation;
 using Microservice.Contracts.Product.Protos;
-using Microservice.Core;
 using Microservice.Core.Extensions;
 using Microservice.Core.Middleware;
-using Microsoft.IdentityModel.Tokens.Experimental;
 using Order.Application;
 using Order.Application.Consumers;
 using Order.Infrastructure;
@@ -43,14 +41,20 @@ builder.Services.AddEventPublisher();
 // Redis
 // ------------------------------------------------------------
 builder.Services.AddRedis(builder.Configuration);
+// ------------------------------------------------------------
 // Build Application
-builder.Services.AddGrpcClient <ProductService.ProductServiceClient> (options =>
+// ------------------------------------------------------------
+builder.Services.AddGrpcClient<ProductService.ProductServiceClient>(options =>
 {
     var grpcAddress = builder.Configuration["Grpc"]
     ?? throw new InvalidOperationException("Grpc configuration is missing.");
 
     options.Address = new Uri(grpcAddress);
 });
+// ------------------------------------------------------------
+//Authentication Key Cloak
+// ------------------------------------------------------------
+builder.Services.AddKeyCloakExtensions();
 
 // ------------------------------------------------------------
 var app = builder.Build();
@@ -66,6 +70,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

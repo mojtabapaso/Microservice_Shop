@@ -30,6 +30,10 @@ builder.Services.AddEventPublisher();
 builder.Services.AddAutoMapper(x=>x.AddProfile(typeof(ProductMappingProfile)));
 
 builder.Services.AddMongoDb(builder.Configuration);
+// ------------------------------------------------------------
+//Authentication Key Cloak
+// ------------------------------------------------------------
+builder.Services.AddKeyCloakExtensions();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

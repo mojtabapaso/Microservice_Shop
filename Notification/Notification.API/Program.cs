@@ -15,6 +15,11 @@ builder.Services.AddSqlServer<DbContextNotification>(builder.Configuration);
 builder.Services.AddApplicationMediator(typeof(ApplicationAssemblyReference).Assembly);
 builder.Services.AddDependencyScanning<InfrastructureAssemblyReference>();
 //builder.Services.AddRabbitMq(builder.Configuration);
+// ------------------------------------------------------------
+//Authentication Key Cloak
+// ------------------------------------------------------------
+builder.Services.AddKeyCloakExtensions();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
