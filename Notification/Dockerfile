@@ -18,13 +18,13 @@ RUN dotnet restore "Notification/Notification.API/Notification.API.csproj"
 
 COPY . .
 
-WORKDIR /src/Notification.API
+WORKDIR /src/Notification
 
-RUN dotnet build "Notification.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "Notification.API/Notification.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 
-RUN dotnet publish "Notification.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish  /p:UseAppHost=false
+RUN dotnet publish "Notification.API/Notification.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish  /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
