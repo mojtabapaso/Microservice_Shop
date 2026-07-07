@@ -10,19 +10,6 @@ The application follows the **CQRS** pattern using **MediatR**, where commands, 
 
 ---
 ![Microservices Architecture](images/image_microservice_shop.png)
-# Challenges
-
-The primary challenge of this project was not the implementation itself, but designing a clean architecture based on an incomplete and sometimes ambiguous requirements document.
-
-A significant amount of time was dedicated to:
-
-* Analyzing business requirements
-* Designing service boundaries
-* Defining domain models
-* Choosing appropriate architectural patterns
-* Structuring reusable infrastructure for future microservices
-
-Rather than focusing only on delivering the requested features, the goal was to build a production-ready architecture that can easily evolve as new services and business requirements are introduced.
 
 ---
 
