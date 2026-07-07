@@ -6,6 +6,7 @@ using Product.Application.Mappings;
 using Product.Application.Product.Events;
 using Product.Infrastructure;
 using Product.Infrastructure.Configurations;
+using Microservice.Core.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,15 @@ builder.Services.AddMongoDb(builder.Configuration);
 //Authentication Key Cloak
 // ------------------------------------------------------------
 builder.Services.AddKeyCloakExtensions();
+// ------------------------------------------------------------
+// Health Checks
+// ------------------------------------------------------------
+builder.Services
+    .AddDefaultHealthChecks()
+    .AddSqlServerHealthCheck(builder.Configuration.GetConnectionString("SqlServer")!)
+    .AddRedisHealthCheck(builder.Configuration.GetConnectionString("Redis")!)
+    .AddRabbitMqHealthCheck(builder.Configuration)
+    .AddMongoDbHealthCheck(builder.Configuration["Mongo:ConnectionString"]!);
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -43,7 +53,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-
+app.MapHealthChecks("/product/health");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
