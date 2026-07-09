@@ -1,5 +1,7 @@
-﻿using Microservice.Core.Persistence;
+﻿using MassTransit;
+using Microservice.Core.Persistence;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace Product.Infrastructure.Configurations;
 
@@ -13,5 +15,11 @@ public class DbContextProduct : BaseDbContext
     {
         base.OnModelCreating(builder);
         builder.ApplyConfiguration(new ProductConfiguration());
+
+        builder.AddInboxStateEntity();
+        builder.AddOutboxMessageEntity();
+        builder.AddOutboxStateEntity();
+
+        builder.ApplyConfigurationsFromAssembly(typeof(DbContextProduct).Assembly);
     }
 }

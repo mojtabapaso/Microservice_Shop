@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Product.Infrastructure.Configurations;
 
@@ -11,9 +12,11 @@ using Product.Infrastructure.Configurations;
 namespace Product.Infrastructure.Migrations
 {
     [DbContext(typeof(DbContextProduct))]
-    partial class DbContextProductModelSnapshot : ModelSnapshot
+    [Migration("20260709064409_outbox2")]
+    partial class outbox2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

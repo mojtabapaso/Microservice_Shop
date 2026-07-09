@@ -36,7 +36,7 @@ public class ServiceResult
     /// <summary>
     /// ایجاد نتیجه ناموفق
     /// </summary>
-    public static ServiceResult Failure(string? message = null,int statusCode = StatusCodes.Status400BadRequest)
+    public static ServiceResult Failure(string? message = null, int statusCode = StatusCodes.Status400BadRequest)
         => new()
         {
             IsSuccess = false,
@@ -47,7 +47,7 @@ public class ServiceResult
     /// <summary>
     /// ایجاد نتیجه در صورت پیدا نشدن داده
     /// </summary>
-    public static ServiceResult NotFound(string message, int statusCode = StatusCodes.Status404NotFound)
+    public static ServiceResult NotFound(string? message = null, int statusCode = StatusCodes.Status404NotFound)
         => new()
         {
             IsSuccess = false,
@@ -70,9 +70,7 @@ public class ServiceResult<T> : ServiceResult
     /// <summary>
     /// ایجاد نتیجه موفق به همراه داده
     /// </summary>
-    public static ServiceResult<T> Success(
-        T data,
-        string? message = null)
+    public static ServiceResult<T> Success(T data, string? message = null)
         => new()
         {
             IsSuccess = true,
@@ -84,9 +82,7 @@ public class ServiceResult<T> : ServiceResult
     /// <summary>
     /// ایجاد نتیجه ناموفق
     /// </summary>
-    public static new ServiceResult<T> Failure(
-        string message,
-        int statusCode = StatusCodes.Status400BadRequest)
+    public static new ServiceResult<T> Failure(string? message = null, int statusCode = StatusCodes.Status400BadRequest)
         => new()
         {
             IsSuccess = false,
@@ -97,9 +93,7 @@ public class ServiceResult<T> : ServiceResult
     /// <summary>
     /// ایجاد نتیجه در صورت پیدا نشدن داده
     /// </summary>
-    public static new ServiceResult<T> NotFound(
-        string message,
-        int statusCode = StatusCodes.Status404NotFound)
+    public static new ServiceResult<T> NotFound(string message, int statusCode = StatusCodes.Status404NotFound)
         => new()
         {
             IsSuccess = false,

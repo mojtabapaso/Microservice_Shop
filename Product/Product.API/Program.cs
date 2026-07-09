@@ -19,7 +19,7 @@ builder.Services.AddSqlServer<DbContextProduct>(builder.Configuration);
 
 builder.Services.AddDependencyScanning<InfrastructureAssemblyReference>();
 builder.Services.AddApplicationMediator(typeof(ApplicationAssemblyReference).Assembly);
-builder.Services.AddRabbitMq(builder.Configuration, x =>
+builder.Services.AddRabbitMq<DbContextProduct>(builder.Configuration, x =>
 {
     x.AddConsumer<ProductCreatedConsumer>();
     x.AddConsumer<ProductUpdatedConsumer>();
