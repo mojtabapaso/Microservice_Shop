@@ -14,7 +14,7 @@ public class ProductServiesServer(IProductRepository productRepository) : Produc
     public async override Task<GetProductDataResponceDto> GetProductData(GetProductDataRequestDto request, ServerCallContext context)
     {
         var product = await productRepository.FindByRowIdAsync(Guid.Parse(request.ProductId));
-        var res = new GetProductDataResponceDto { Price = product is not null ? product.Price : 0 };
+        var res = new GetProductDataResponceDto { Price = product is not null ? product.Price.Amount : 0 };
         return res;
     }
 }

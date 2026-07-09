@@ -9,7 +9,7 @@ using Product.Application.Product.Queries;
 namespace Product.API.Controllers;
 
 [ApiController]
-[Authorize(Roles = "Admin")]
+//[Authorize(Roles = "Admin")]
 [Route("[controller]")]
 public class ProductController(ICommandDispatcher commandDispatcher,IQueryDispatcher queryDispatcher) : ControllerBase
 {

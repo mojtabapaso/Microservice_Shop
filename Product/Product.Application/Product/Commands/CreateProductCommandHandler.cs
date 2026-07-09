@@ -2,6 +2,7 @@
 using Microservice.Core.EventPublisher;
 using Microservice.Core.Mediator;
 using Product.Application.Product.Events;
+using Product.Domain.ValueObjects;
 using Product.Infrastructure.Repositories;
 
 namespace Product.Application.Product.Commands;
@@ -13,7 +14,7 @@ public sealed class CreateProductCommandHandler(IProductRepository productReposi
     public async Task<ServiceResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var dto = request.Product;
-        var product = new Domain.Entities.Product(dto.Name, dto.Description, dto.Price, dto.Stock, dto.SKU);
+        var product = new Domain.Entities.Product(new ProductName(dto.Name), dto.Description,new Money(dto.Price,Currency.IRR), dto.Stock, dto.SKU);
         await productRepository.AddAsync(product);
         eventContext.Add(new ProductCreatedEvent(product.RowId));
         return ServiceResult.Success();

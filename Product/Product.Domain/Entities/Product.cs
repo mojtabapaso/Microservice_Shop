@@ -1,4 +1,5 @@
 ﻿using Microservice.Core;
+using Product.Domain.ValueObjects;
 
 namespace Product.Domain.Entities;
 
@@ -6,11 +7,11 @@ public class Product : BaseEntity
 {
     public long Id { get; private set; }
     public Guid RowId { get; private set; }
-    public string Name { get; private set; } = null!;
+    public ProductName Name { get; private set; } = null!;
 
     public string? Description { get; private set; }
 
-    public long Price { get; private set; }
+    public Money Price { get; private set; }
 
     public int Stock { get; private set; }
 
@@ -27,9 +28,9 @@ public class Product : BaseEntity
         // For EF Core
     }
 
-    public Product(string name, string? description, long price, int stock, string sku)
+    public Product(ProductName name, string? description, Money price, int stock, string sku)
     {
-        Name = name;
+        Name =  name;
         Description = description;
         Price = price;
         Stock = stock;
@@ -39,7 +40,7 @@ public class Product : BaseEntity
         RowId = Guid.NewGuid();
     }
 
-    public void UpdateInformation(string name,string? description, long price, string sku)
+    public void UpdateInformation(ProductName name,string? description, Money price, string sku)
     {
         Name = name;
         Description = description;
@@ -82,11 +83,8 @@ public class Product : BaseEntity
         UpdatedAt = DateTime.UtcNow;
     }
 
-    public void ChangePrice(long price)
+    public void ChangePrice(Money price)
     {
-        if (price < 0)
-            throw new ArgumentException("Price cannot be negative.");
-
         Price = price;
         UpdatedAt = DateTime.UtcNow;
     }

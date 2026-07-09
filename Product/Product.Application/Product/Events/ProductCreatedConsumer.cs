@@ -15,7 +15,7 @@ public class ProductCreatedConsumer(IProductMongoRepository productMongoReposito
             Id = product.RowId,
             Description = product.Description,
             Name = product.Name,
-            Price = product.Price,
+            Price = product.Price.Amount,
             SKU = product.SKU,
             Stock = product.Stock
         }, CancellationToken.None); // TODO CancellationToken.None get from above later

@@ -2,7 +2,7 @@
 using Microservice.Core.ApiResult;
 using Microservice.Core.EventPublisher;
 using Microservice.Core.Mediator;
-using Product.Application.Product.Events;
+using Product.Domain.ValueObjects;
 using Product.Infrastructure.Repositories;
 
 namespace Product.Application.Product.Commands;
@@ -15,7 +15,7 @@ public sealed class ChangeProductPriceCommandHandler(IProductRepository productR
         var product = await productRepository.FindByIdAsync(request.ChangeProductPriceDto.ProductId);
         if (product is null)
             return ServiceResult.Failure();
-        product.ChangePrice(request.ChangeProductPriceDto.NewPrice);
+        product.ChangePrice(new Money(request.ChangeProductPriceDto.NewPrice, Currency.IRR));
         productRepository.Update(product);
         eventContext.Add(new ProductPriceChangedEvent(product.RowId, request.ChangeProductPriceDto.NewPrice));
 

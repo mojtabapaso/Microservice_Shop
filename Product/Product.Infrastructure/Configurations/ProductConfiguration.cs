@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Product.Domain.ValueObjects;
 
 namespace Product.Infrastructure.Configurations;
 
@@ -15,6 +16,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Domain.Entities.Pro
                .ValueGeneratedOnAdd();
 
         builder.Property(x => x.Name)
+                .HasConversion(v=>v.GetValue(), v => new ProductName(v))
                .IsRequired()
                .HasMaxLength(200);
 
@@ -22,6 +24,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Domain.Entities.Pro
                .HasMaxLength(2000);
 
         builder.Property(x => x.Price)
+               .HasConversion(v => v.GetValue(), v => new Money(v,Currency.IRR))
                .HasPrecision(18, 2);
 
         builder.Property(x => x.Stock)
