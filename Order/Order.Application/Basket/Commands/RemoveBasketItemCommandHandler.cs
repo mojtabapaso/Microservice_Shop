@@ -15,7 +15,7 @@ public class RemoveBasketItemCommandHandler(IBasketRepository basketRepository,I
     {
         // دریافت سبد خرید کاربر به همراه تمامی آیتم‌های آن
         var basket = await basketRepository
-            .GetBasketWithAllItemsByUserIdAsync(request.UserId);
+            .GetBasketWithAllItemsByUserIdAsync(request.removeBasketItemDTO.UserId);
 
         // در صورت نبودن سبد خرید، نتیجه NotFound برگردانده می‌شود.
         if (basket is null)
@@ -24,11 +24,11 @@ public class RemoveBasketItemCommandHandler(IBasketRepository basketRepository,I
         }
 
         // حذف کالای موردنظر از سبد خرید از طریق منطق دامنه
-        basket.RemoveItem(request.ProductId);
+        basket.RemoveItem(request.removeBasketItemDTO.ProductId);
 
         // بروزرسانی کش سبد خرید پس از اعمال تغییرات
         await mediator.Send(
-            new RestoreCacheBasketEvent(request.UserId),
+            new RestoreCacheBasketEvent(request.removeBasketItemDTO.UserId),
             cancellationToken);
 
         // بازگرداندن نتیجه موفق عملیات

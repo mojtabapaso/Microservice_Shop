@@ -1,5 +1,6 @@
 using Microservice.Core.ApiResult;
 using Microservice.Core.Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Order.Application.Basket.Commands;
 using Order.Application.Basket.DTOs;
@@ -8,43 +9,41 @@ using Order.Application.Basket.Queries;
 namespace Order.API.Controllers;
 
 [ApiController]
+[Authorize(Roles = "Admin")]
 [Route("api/v1/basket")]
 public class BasketController(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher) : ControllerBase
 {
-
-
-    [HttpGet("{userId:long}")]
-    public async Task<IActionResult> Get(long userId, CancellationToken cancellationToken)
+    [HttpGet("[Action]")]
+    public async Task<IActionResult> Get(GetBasketDTO getBasketDTO, CancellationToken cancellationToken)
     {
-
-        var result = await queryDispatcher.Dispatch(new GetOrCreateBasketQuery(userId), cancellationToken);
+        var result = await queryDispatcher.Dispatch(new GetOrCreateBasketQuery(getBasketDTO), cancellationToken);
         return result.ToApiResult();
     }
     [HttpPost("Add")]
-    public async Task<IActionResult> Add(AddBasketItemDTO dto, CancellationToken cancellationToken)
+    public async Task<IActionResult> Add(AddBasketItemDTO addBasketItemDTO, CancellationToken cancellationToken)
     {
-        var result = await commandDispatcher.Dispatch(new AddItemToBasketCommand(dto.UserId, dto.ProductId, dto.Quantity, dto.UnitPrice), cancellationToken);
+        var result = await commandDispatcher.Dispatch(new AddItemToBasketCommand(addBasketItemDTO), cancellationToken);
         return result.ToApiResult();
     }
 
-    [HttpPut("/{userId:long}/items/{productId:guid}/quantity/{newQuantity:int}/")] // TODO change to use dto
-    public async Task<IActionResult> Update(long userId, Guid productId, int newQuantity, CancellationToken cancellationToken)
+    [HttpPut("[Action]")]
+    public async Task<IActionResult> Update(UpdateBasketItemQuantityDTO basketItemQuantityDTO, CancellationToken cancellationToken)
     {
-        var result = await commandDispatcher.Dispatch(new UpdateBasketItemQuantityCommand(userId, productId, newQuantity), cancellationToken);
+        var result = await commandDispatcher.Dispatch(new UpdateBasketItemQuantityCommand(basketItemQuantityDTO), cancellationToken);
         return result.ToApiResult();
     }
 
-    [HttpDelete("/{userId:long}/items/{productId:guid}")]
-    public async Task<IActionResult> DeleteOne(long userId, Guid productId, CancellationToken cancellationToken)
+    [HttpDelete("[Action]")]
+    public async Task<IActionResult> RemoveBasketItem(RemoveBasketItemDTO removeBasketItemDTO, CancellationToken cancellationToken)
     {
-        var result = await commandDispatcher.Dispatch(new RemoveBasketItemCommand(userId, productId), cancellationToken);
+        var result = await commandDispatcher.Dispatch(new RemoveBasketItemCommand(removeBasketItemDTO), cancellationToken);
         return result.ToApiResult();
     }
 
-    [HttpDelete("/{userId:long}")]
-    public async Task<IActionResult> DeleteAll(long userId, CancellationToken cancellationToken)
+    [HttpDelete("[Action]")]
+    public async Task<IActionResult> DeleteAll(ClearBasketDTO clearBasketDTO, CancellationToken cancellationToken)
     {
-        var result = await commandDispatcher.Dispatch(new ClearBasketCommand(userId), cancellationToken);
+        var result = await commandDispatcher.Dispatch(new ClearBasketCommand(clearBasketDTO), cancellationToken);
         return result.ToApiResult();
     }
 

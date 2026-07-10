@@ -18,7 +18,7 @@ public class GetOrCreateBasketQueryHandler(IBasketRepository basketRepository, I
     public async Task<ServiceResult<BasketDTO>> Handle(GetOrCreateBasketQuery request, CancellationToken cancellationToken)
     {
         // تولید کلید کش بر اساس شناسه کاربر
-        var cacheKey = $"basket{request.userId}";
+        var cacheKey = $"basket{request.GetBasketDTO.UserId}";
 
         // تلاش برای دریافت سبد خرید از Redis
         var basketDto = await basketCacheService.GetAsync<BasketDTO>(cacheKey);
@@ -27,13 +27,13 @@ public class GetOrCreateBasketQueryHandler(IBasketRepository basketRepository, I
         if (basketDto?.basketItemsDTOs is null)
         {
             // دریافت سبد خرید کاربر به همراه تمامی آیتم‌ها
-            var basket = await basketRepository.GetBasketWithAllItemsByUserIdAsync(request.userId);
+            var basket = await basketRepository.GetBasketWithAllItemsByUserIdAsync(request.GetBasketDTO.UserId);
 
             // اگر کاربر هنوز سبد خریدی نداشته باشد، یک سبد جدید ایجاد می‌شود.
             if (basket is null)
             {
                 basket = new Domain.Entities.Basket();
-                basket = basket.CreateBasket(request.userId);
+                basket = basket.CreateBasket(request.GetBasketDTO.UserId);
                 await basketRepository.AddAsync(basket);
                 var res = await unitOfWork.SaveChangesAsync(cancellationToken);
             }
@@ -42,12 +42,7 @@ public class GetOrCreateBasketQueryHandler(IBasketRepository basketRepository, I
             basketDto = new BasketDTO
             {
                 basketItemsDTOs = basket.Items?
-                    .Select(item => new BasketItemsDTO
-                    {
-                        ProductId = item.ProductId,
-                        Quantity = item.Quantity,
-                        UnitPrice = item.UnitPrice
-                    })
+                    .Select(item => new BasketItemsDTO(item.ProductId, item.Quantity, item.UnitPrice))
                     .ToList()
             };
 

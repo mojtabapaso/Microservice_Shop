@@ -14,12 +14,12 @@ public class UpdateBasketItemQuantityCommandHandler(IBasketRepository basketRepo
 {
     public async Task<ServiceResult> Handle(UpdateBasketItemQuantityCommand request,CancellationToken cancellationToken)
     {
-        var basket = await basketRepository.GetActiveBasketWithItemsByUserId(request.UserId);
+        var basket = await basketRepository.GetActiveBasketWithItemsByUserId(request.UpdateBasketItemQuantityDTO.UserId);
         if (basket is not null)
         {
-            basket.UpdateQuantity(request.ProductId,request.NewQuantity);
+            basket.UpdateQuantity(request.UpdateBasketItemQuantityDTO.ProductId, request.UpdateBasketItemQuantityDTO.NewQuantity);
         }
-        await mediator.Send(new RestoreCacheBasketEvent(request.UserId),cancellationToken);
+        await mediator.Send(new RestoreCacheBasketEvent(request.UpdateBasketItemQuantityDTO.UserId),cancellationToken);
         return ServiceResult.Success();
     }
 }

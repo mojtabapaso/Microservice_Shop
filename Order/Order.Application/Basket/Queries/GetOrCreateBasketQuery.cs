@@ -4,4 +4,4 @@ using Order.Application.Basket.DTOs;
 
 namespace Order.Application.Basket.Queries;
 
-public record GetOrCreateBasketQuery(long userId) : IQuery<ServiceResult<BasketDTO>>;
+public record GetOrCreateBasketQuery(GetBasketDTO GetBasketDTO) : IQuery<ServiceResult<BasketDTO>>;

@@ -18,7 +18,7 @@ public class ClearBasketCommandHandler(IBasketRepository basketRepository,IMedia
         // دریافت سبد خرید کاربر به همراه تمامی آیتم‌های آن
         // برای حذف آیتم‌ها باید آن‌ها نیز بارگذاری شده باشند.
         var basket = await basketRepository
-            .GetBasketWithAllItemsByUserIdAsync(request.UserId);
+            .GetBasketWithAllItemsByUserIdAsync(request.ClearBasketDTO.UserId);
 
         // در صورت نبودن سبد خرید، نتیجه NotFound برگردانده می‌شود.
         if (basket is null)
@@ -33,7 +33,7 @@ public class ClearBasketCommandHandler(IBasketRepository basketRepository,IMedia
 
         // بروزرسانی کش سبد خرید پس از اعمال تغییرات
         await mediator.Send(
-            new RestoreCacheBasketEvent(request.UserId),
+            new RestoreCacheBasketEvent(request.ClearBasketDTO.UserId),
             cancellationToken);
 
         // بازگرداندن نتیجه موفق عملیات

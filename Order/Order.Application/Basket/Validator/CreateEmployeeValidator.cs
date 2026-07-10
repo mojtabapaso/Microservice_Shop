@@ -18,7 +18,7 @@ public class AddBasketItemValidator : AbstractValidator<AddItemToBasketCommand>
         //    .WithMessage("Product Id can't 0 ");
 
         // تعداد کالا باید مشخص شده و حداکثر 10 عدد باشد.
-        RuleFor(x => x.Quantity)
+        RuleFor(x => x.AddBasketItemDTO.Quantity)
             .NotNull()
             .NotEmpty()
             .LessThanOrEqualTo(10);

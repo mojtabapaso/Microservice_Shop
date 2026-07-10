@@ -21,19 +21,19 @@ public class AddItemToBasketCommandHandler(IBasketRepository basketRepository, I
     public async Task<ServiceResult> Handle(AddItemToBasketCommand request, CancellationToken cancellationToken)
     {
         //
-        var reee = await productServiceClient.GetProductDataAsync(new GetProductDataRequestDto { ProductId = request.ProductId.ToString()}
+        var reee = await productServiceClient.GetProductDataAsync(new GetProductDataRequestDto { ProductId = request.AddBasketItemDTO.ProductId.ToString()}
         ,deadline:DateTime.UtcNow.AddSeconds(5), cancellationToken: cancellationToken);
 
         // دریافت سبد خرید فعال کاربر (به همراه آیتم‌های آن)
-        var basket = await basketRepository.GetActiveBasketWithItemsByUserId(request.UserId);
+        var basket = await basketRepository.GetActiveBasketWithItemsByUserId(request.AddBasketItemDTO.UserId);
         // اگر سبد خریدی وجود نداشت، یک سبد جدید ایجاد می‌کنیم.
         if (basket is null)
         {
             basket = new BasketEntity();
-            basket = basket.CreateBasket(request.UserId);
+            basket = basket.CreateBasket(request.AddBasketItemDTO.UserId);
 
             // افزودن اولین کالا به سبد
-            basket.AddItem(request.ProductId, request.Quantity, request.UunitPrice);
+            basket.AddItem(request.AddBasketItemDTO.ProductId, request.AddBasketItemDTO.Quantity, request.AddBasketItemDTO.UnitPrice);
             await dbContextBasket.AddAsync(basket);
 
             // ثبت سبد جدید در دیتابیس
@@ -42,7 +42,7 @@ public class AddItemToBasketCommandHandler(IBasketRepository basketRepository, I
         else
         {
             // در صورت وجود سبد، کالا را به آن اضافه می‌کنیم.
-            basket.AddItem(request.ProductId, request.Quantity, request.UunitPrice);
+            basket.AddItem(request.AddBasketItemDTO.ProductId, request.AddBasketItemDTO.Quantity, request.AddBasketItemDTO.UnitPrice);
 
             // اعمال تغییرات روی سبد
             basketRepository.Update(basket);
@@ -53,13 +53,13 @@ public class AddItemToBasketCommandHandler(IBasketRepository basketRepository, I
         // باید تغییرات ذخیره شوند تا شناسه معتبر در اختیار داشته باشیم.
         int saveResult = await unitOfWork.SaveChangesAsync(cancellationToken);
         // دریافت شناسه سبد فعال کاربر
-        long basketId = await basketRepository.GetActiveBasketIdByUserId(request.UserId);
+        long basketId = await basketRepository.GetActiveBasketIdByUserId(request.AddBasketItemDTO.UserId);
 
         // ارسال Event برای انجام پردازش‌های پس از افزودن کالا
         await mediator.Send( new BasketItemAddedEvent(basketId), cancellationToken);
 
         // بروزرسانی کش سبد خرید
-        await mediator.Send(new RestoreCacheBasketEvent(request.UserId), cancellationToken);
+        await mediator.Send(new RestoreCacheBasketEvent(request.AddBasketItemDTO.UserId), cancellationToken);
 
         // بازگرداندن نتیجه موفق عملیات
         return ServiceResult.Success();
