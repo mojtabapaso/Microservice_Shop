@@ -3,11 +3,11 @@ using MediatR;
 using Microservice.Core.ApiResult;
 using Microservice.Core.Interfaces;
 using Microservice.Core.Mediator;
-using Order.Application.Basket.Events;
 using Order.Infrastructure.Configurations;
 using Order.Infrastructure.Repositories;
 using static Microservice.Contracts.Product.Protos.ProductService;
 using BasketEntity = Order.Domain.Entities.Basket;
+using Order.Application.Basket.Events;
 
 namespace Order.Application.Basket.Commands;
 
